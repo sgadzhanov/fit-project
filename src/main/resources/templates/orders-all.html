@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/common :: head">
+</head>
+<body>
+
+<nav th:replace="fragments/common :: navbar">
+</nav>
+
+<div class="my-3 col-sm-12 d-flex justify-content-center">
+    <input id="searchInput" class="form-control mr-sm-2 w-50 text-center"
+           placeholder="Search for client name" aria-label="Search">
+</div>
+
+<div class="d-flex justify-content-center">
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Client full name</th>
+            <th>Time of order</th>
+        </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/searchBar.js"></script>
+
+</body>
+</html>

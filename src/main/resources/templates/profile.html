@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/common :: head">
+</head>
+
+<body>
+<nav th:replace="fragments/common :: navbar">
+</nav>
+
+<main class="p-5 align-content-center bg-blur my-register-div">
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div th:object="${userViewModel}" class="profile-card p-3 py-4">
+                    <div class="text-center">
+                        <img th:if="*{pictureUrl==null}"
+
+                             src="https://img2.thejournal.ie/article/2558882/river?version=2558937&width=1340"
+                             width="300" class="rounded-circle" alt="profilePic">
+
+                        <img th:unless="*{pictureUrl==null}" th:src="*{pictureUrl}"
+                             width="300" class="rounded-circle" alt="profilePic">
+                    </div>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Upload profile picture</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/users/profile/{id}(id= ${userViewModel.id})}"
+                                          th:method="PATCH"
+                                          th:object="${userPictureBindingModel}"
+                                          enctype="multipart/form-data">
+                                        <input th:field="*{picture}"
+                                               type="file" required>
+                                        <!--                                        </input>-->
+                                        <!--                                        <input value="Upload" type="submit"></input>-->
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <span class="bg-secondary p-1 px-4 rounded text-white"
+                              th:text="*{experienceLevel.name()}"
+                        ></span>
+                        <h5 class="mt-2 mb-0"></h5>
+                        <div class="px-4 mt-5">
+                            <th:block th:if="*{!orders.isEmpty()}">
+                                <h2>Your orders: </h2>
+                                <ol id="orders-container">
+                                </ol>
+                                <button id="showOrders" class="btn btn-outline-secondary px-4"
+                                        style="margin-bottom: 30px">Show my orders
+                                </button>
+                            </th:block>
+                            <h2 th:if="*{orders.isEmpty()}">You haven't ordered any products yet.</h2>
+
+                        </div>
+                        <div class="buttons">
+                            <button onclick="location.href = '/';" class="btn btn-outline-secondary px-4">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/common :: footer">
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/ordersScript.js"></script>
+
+</body>
+</html>
